@@ -1,14 +1,14 @@
-
 import cpp
 
+
 class NetworkByteSwap extends Expr {
-    NetworkByteSwap () {
-        // todo
+    NetworkByteSwap() {
         exists(MacroInvocation mi |
-            mi.getMacro().getName() =  "ntohs" or mi.getMacro().getName() =  "ntohl" or mi.getMacro().getName() =  "ntohll"
+        mi.getMacroName().regexpMatch("ntoh(s|l|ll)") and
+        this = mi.getExpr()
         )
     }
 }
 
 from NetworkByteSwap n
-select n, "Network Byte Swap"
+select n
